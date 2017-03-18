@@ -1,0 +1,25 @@
+{
+  "name": "app-replicator",
+  "version": "1.0.0",
+  "description": "Replicator server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mms-livestream/app-replicator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mms-livestream/app-replicator/issues"
+  },
+  "homepage": "https://github.com/mms-livestream/app-replicator#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "fs": "0.0.1-security",
+    "mms-core": "^0.1.12",
+    "request": "^2.81.0"
+  }
+}
