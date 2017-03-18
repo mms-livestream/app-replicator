@@ -1,65 +1,36 @@
+/*jslint node: true */
+/*jshint esversion: 6 */
+"use strict";
+
+//Dependencies
+
+
 var express = require("express");
-var request = require("request");
-var fs = require("fs");
-var app = express();
-//var file = "out500000_dash1.m4s";
+let core = require("mms-core");
+let Promise = require("bluebird"); //jshint ignore:line
 
-app.put("/api/content/:contentId/:quality/:segment", function(req, res) {
-  var contentId = req.params.contentId;
-  var quality = req.params.quality;
-  var segment = req.params.segment;
+let serverAPI = require("./api/server/module.js");
+let serviceAPI = require("./api/server/module.js");
 
-//list destination
-  var lineReader = require("readline").createInterface({terminal: false,
-    input: require("fs").createReadStream("dst_file.txt")
-  });
-  lineReader.on("line", function(line) {
-    console.log(line +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
 
-    //Redirection
-    //var stream = req.pipe(request.put(line +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
-    var stream = req.pipe(request.put(line +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
-    stream.on("finish", function() {
-      res.end();
+let app = express();
+
+
+
+class Replicator {
+  constructor() {
+    this.node = "NODE_REPLICATOR";
+    this.service = new core.Service(this.node, serviceAPI);
+    this.server = new core.Server(this.node, serverAPI, {
+      service: this.service,
     });
+  }
 
-  });
+}
 
-/*
-  var stream = req.pipe(request.put("http://localhost:8081" +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
-    stream.on("finish", function() {
-      res.end();
-    });
-  */
-  //var stream = req.pipe(fs.createWriteStream(contentId+quality+segment));
-});
+//Main
 
-app.put("/api/mp4/:contentId/:quality/:segment", function(req, res) {
-  var contentId = req.params.contentId;
-  var quality = req.params.quality;
-  var segment = req.params.segment;
+let replicator = new Replicator();
 
-//list destination
-  var lineReader = require("readline").createInterface({terminal: false,
-    input: require("fs").createReadStream("dst_file.txt")
-  });
-  lineReader.on("line", function(line) {
-    console.log(line +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
+replicator.server.listen();
 
-    //Redirection
-    //var stream = req.pipe(request.put(line +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
-    var stream = req.pipe(request.put(line +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
-    stream.on("finish", function() {
-      res.end();
-    });
-
-  });
-});
-
-app.use(function(req, res, next) {
-  res.setHeader("Content-Type", "text/plain");
-  res.status(404).send("Page introuvable !!");
-});
-
-app.listen(9000);
-console.log("Rep_server listening on 9000");
