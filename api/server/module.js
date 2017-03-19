@@ -5,8 +5,7 @@
 let fs = require("fs");
 let request = require("request");
 let express = require("express");
-let bodyParser = require("body-parser");
-let Infiniteloop = require("infinite-loop");
+
 
 module.exports = options => {
   let service = options.service;
