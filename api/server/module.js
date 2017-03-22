@@ -12,7 +12,8 @@ module.exports = options => {
   let router = express.Router();
 
 
-  router.post("/api/content/:contentId/:quality/:segment", function(req, res) {
+  router.put("/content/:contentId/:quality/:segment", function(req, res) {
+    console.log("ok put rcv");
     var contentId = req.params.contentId;
     var quality = req.params.quality;
     var segment = req.params.segment;
@@ -22,7 +23,7 @@ module.exports = options => {
     lineReader.on("line", function(line) {console.log(line + "/api/content" + "/" + contentId + "/" + quality + "/" + segment);
 
       //Redirection
-      var stream = req.pipe(request.post(line +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
+      var stream = req.pipe(request.put(line +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
       stream.on("finish", function() {
         res.end();
       });
@@ -30,7 +31,7 @@ module.exports = options => {
   });
 
 
-    router.post("/api/mp4/:contentId/:quality/:segment", function(req, res) {
+    router.put("/mp4/:contentId/:quality/:segment", function(req, res) {
         let contentId = req.params.contentId;
         let quality = req.params.quality;
         let segment = req.params.segment;
@@ -44,7 +45,7 @@ module.exports = options => {
 
         //Redirection
     
-        var stream = req.pipe(request.post(line +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
+        var stream = req.pipe(request.put(line +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
         stream.on("finish", function() {
             res.end();
          });
