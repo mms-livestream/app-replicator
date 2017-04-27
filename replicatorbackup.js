@@ -61,5 +61,6 @@ app.use(function(req, res, next) {
   res.status(404).send("Page introuvable !!");
 });
 
-app.listen(8086);
+var server = app.listen(8086);
+server.timeout = 100000000;
 console.log("Rep_server listening on 9000");

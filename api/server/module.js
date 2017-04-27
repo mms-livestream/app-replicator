@@ -5,7 +5,7 @@
 let fs = require("fs");
 let request = require("request");
 let express = require("express");
-let arr = {'1':['http://192.168.2.122:8087'], '2':['http://192.168.2.130:8087']}; // Default json
+let arr = {'1':['http://127.0.0.1:8087']}; // Default json
 
 module.exports = options => {
   let service = options.service;
@@ -26,7 +26,7 @@ module.exports = options => {
 
     //Redirection
     for (let i = 0; i < dst.length; i++) {
-      console.log(line +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
+      console.log(dst[i] +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
       var stream = req.pipe(request.put(dst[i] +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
     }
     stream.on("finish", function() {
@@ -42,7 +42,7 @@ module.exports = options => {
 
     //Redirection
     for (let i = 0; i < dst.length; i++) {
-      console.log(line +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
+      console.log(dst[i] +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
       var stream = req.pipe(request.put(dst[i] +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
     }
     stream.on("finish", function() {
@@ -50,5 +50,6 @@ module.exports = options => {
     });
   });
 
+  router.timeout = 100000000;
   return router;
 };

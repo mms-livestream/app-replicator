@@ -24,6 +24,7 @@ class Replicator {
     this.server = new core.Server(this.node, serverAPI, {
       service: this.service,
     });
+     this.server.timeout = 100000000;
   }
 
 }
@@ -33,4 +34,5 @@ class Replicator {
 let replicator = new Replicator();
 
 replicator.server.listen();
+replicator.server.timeout = 100000000;
 
