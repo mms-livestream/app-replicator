@@ -13,7 +13,7 @@ let serverAPI = require("./api/server/module.js");
 let serviceAPI = require("./api/server/module.js");
 
 
-let app = express();
+//let app = express();
 
 
 
@@ -24,7 +24,7 @@ class Replicator {
     this.server = new core.Server(this.node, serverAPI, {
       service: this.service,
     });
-     this.server.timeout = 100000000;
+     //this.server.framework.timeout = 100000000;
   }
 
 }
@@ -33,6 +33,9 @@ class Replicator {
 
 let replicator = new Replicator();
 
-replicator.server.listen();
-replicator.server.timeout = 100000000;
+replicator.server.listen()
+.then( (listeningServer) => {
+  //console.log(listeningServer);
+  listeningServer.timeout = 100000000;
+});
 
