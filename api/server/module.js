@@ -5,7 +5,8 @@
 let fs = require("fs");
 let request = require("request");
 let express = require("express");
-let arr = {'1':['http://192.168.2.130:8087']}; // Default json
+let arr; //= {'1':['http://192.168.2.130:8087','http://192.168.2.100:8087']}; // Default json
+let dst;
 
 module.exports = options => {
   let service = options.service;
@@ -14,23 +15,27 @@ module.exports = options => {
   router.post("/manage/location", function(req, res) {
     console.log("rcv put");
     arr = req.body;
-    // console.log(arr);
-    // console.log(arr[1][0]);
+    console.log(arr);
   });
+
+
+ 
+
 
   router.put("/content/:contentId/:quality/:segment", function(req, res) {
     var contentId = req.params.contentId;
     var quality = req.params.quality;
     var segment = req.params.segment;
     
-    if (arr[contentId] == undefined){
-      var dst = arr['new'];
+    if (arr[contentId] == undefined){ 
+      dst = arr['new'];
+    }else{   
+      dst = arr[contentId];
     }
     
-    var dst = arr[contentId];
-
+  
     //Redirection
-    for (let i = 0; i < dst.length; i++) {
+    for (let i = 0; i < dst.length ; i++) {
       console.log(dst[i] +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
       var stream = req.pipe(request.put(dst[i] +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
     }
@@ -44,6 +49,12 @@ module.exports = options => {
     let quality = req.params.quality;
     let segment = req.params.segment;
     var dst = arr[contentId];
+
+    if (arr[contentId] == undefined){ 
+      dst = arr['new'];
+    }else{   
+      dst = arr[contentId];
+    }
 
     //Redirection
     for (let i = 0; i < dst.length; i++) {
