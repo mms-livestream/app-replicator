@@ -5,7 +5,7 @@
 let fs = require("fs");
 let request = require("request");
 let express = require("express");
-let arr = {'1':['http://127.0.0.1:8087']}; // Default json
+let arr = {'1':['http://192.168.2.130:8087']}; // Default json
 
 module.exports = options => {
   let service = options.service;
@@ -22,6 +22,11 @@ module.exports = options => {
     var contentId = req.params.contentId;
     var quality = req.params.quality;
     var segment = req.params.segment;
+    
+    if (arr[contentId] == undefined){
+      var dst = arr['new'];
+    }
+    
     var dst = arr[contentId];
 
     //Redirection
