@@ -27,10 +27,10 @@ module.exports = options => {
     var quality = req.params.quality;
     var segment = req.params.segment;
     
-    if (arr[contentId] == undefined){ 
+    if (arr['uploader:'+contentId] == undefined){ 
       dst = arr['new'];
     }else{   
-      dst = arr[contentId];
+      dst = arr['uploader:'+contentId];
     }
     
   
@@ -50,10 +50,10 @@ module.exports = options => {
     let segment = req.params.segment;
     var dst = arr[contentId];
 
-    if (arr[contentId] == undefined){ 
+    if (arr['uploader:'+contentId] == undefined){ 
       dst = arr['new'];
     }else{   
-      dst = arr[contentId];
+      dst = arr['uploader:'+contentId];
     }
 
     //Redirection
