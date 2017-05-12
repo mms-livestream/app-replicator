@@ -5,8 +5,8 @@
 let fs = require("fs");
 let request = require("request");
 let express = require("express");
-let arr; //= {'1':['http://192.168.2.130:8087','http://192.168.2.100:8087']}; // Default json
-let dst;
+let arr; //= {'1':['http://192.168.2.130:8087']}; // Default json
+let dst; //= 'http://192.168.2.130:8087';
 
 module.exports = options => {
   let service = options.service;
@@ -33,7 +33,8 @@ module.exports = options => {
       dst = arr['uploader:'+contentId];
     }
     
-  
+    //dst = arr[contentId]
+
     //Redirection
     for (let i = 0; i < dst.length ; i++) {
       console.log(dst[i] +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
@@ -48,7 +49,7 @@ module.exports = options => {
     let contentId = req.params.contentId;
     let quality = req.params.quality;
     let segment = req.params.segment;
-    var dst = arr[contentId];
+    //var dst = arr[contentId];
 
     if (arr['uploader:'+contentId] == undefined){ 
       dst = arr['new'];
@@ -56,6 +57,7 @@ module.exports = options => {
       dst = arr['uploader:'+contentId];
     }
 
+    //dst = arr[contentId]
     //Redirection
     for (let i = 0; i < dst.length; i++) {
       console.log(dst[i] +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
