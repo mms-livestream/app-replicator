@@ -5,6 +5,7 @@
 let fs = require("fs");
 let request = require("request");
 let express = require("express");
+let core = require("mms-core");
 let arr; //= {'1':['http://192.168.2.130:8087']}; // Default json
 let dst; //= 'http://192.168.2.130:8087';
 
@@ -37,8 +38,8 @@ module.exports = options => {
 
     //Redirection
     for (let i = 0; i < dst.length ; i++) {
-      console.log(dst[i] +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
-      var stream = req.pipe(request.put(dst[i] +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
+      console.log(dst[i] + ":" +core.dConfig["NODE_DISTRIB"].server.port +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
+      var stream = req.pipe(request.put(dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
     }
     stream.on("finish", function() {
       res.end('res.end');
@@ -60,8 +61,8 @@ module.exports = options => {
     //dst = arr[contentId]
     //Redirection
     for (let i = 0; i < dst.length; i++) {
-      console.log(dst[i] +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
-      var stream = req.pipe(request.put(dst[i] +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
+      console.log(dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
+      var stream = req.pipe(request.put(dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
     }
     stream.on("finish", function() {
       res.end('res.end');
