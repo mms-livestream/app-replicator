@@ -38,8 +38,8 @@ module.exports = options => {
 
     //Redirection
     for (let i = 0; i < dst.length ; i++) {
-      console.log(dst[i] + ":" +core.dConfig["NODE_DISTRIB"].server.port +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
-      var stream = req.pipe(request.put(dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
+      console.log("http://" + dst[i] + ":" +core.dConfig["NODE_DISTRIB"].server.port +"/api/content" +"/" + contentId +"/" +quality +"/" +segment);
+      var stream = req.pipe(request.put("http://" + dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/content" +"/" +contentId +"/" +quality +"/" +segment));
     }
     stream.on("finish", function() {
       res.end('res.end');
@@ -61,8 +61,8 @@ module.exports = options => {
     //dst = arr[contentId]
     //Redirection
     for (let i = 0; i < dst.length; i++) {
-      console.log(dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
-      var stream = req.pipe(request.put(dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
+      console.log("http://" + dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/mp4" +"/" + contentId +"/" +quality +"/" +segment);
+      var stream = req.pipe(request.put("http://" + dst[i] + ":" + core.dConfig["NODE_DISTRIB"].server.port +"/api/mp4" +"/" +contentId +"/" +quality +"/" +segment));
     }
     stream.on("finish", function() {
       res.end('res.end');
