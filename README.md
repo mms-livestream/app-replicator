@@ -2,7 +2,8 @@
 Replicator server
 
 in static mode (without replication decision) change the target addr in api/server/module.js
+=> need app-intelligence running and sending addr of MSstream server.
 
-run node Index.js
+1. npm install
+2. node Index.js
 
-delete folder of the id video
